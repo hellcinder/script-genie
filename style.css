@@ -1,40 +1,54 @@
 body {
-  font-family: Courier, monospace;
-  margin: 0;
-  padding: 0;
-  background: #f4f4f4;
+    font-family: "Courier New", monospace;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background 0.3s, color 0.3s;
 }
 
-.title-bar {
-  background: #222;
-  color: white;
-  text-align: center;
-  padding: 10px;
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+}
+
+body.dark {
+    --bg-color: #1e1e1e;
+    --text-color: #dcdcdc;
 }
 
 .toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 10px;
-  background: #ddd;
-  gap: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em 1em;
+    background-color: var(--bg-color);
+    border-bottom: 1px solid #ccc;
 }
 
 textarea#editor {
-  width: 100%;
-  height: 400px;
-  padding: 10px;
-  font-family: Courier, monospace;
-  font-size: 14px;
-  box-sizing: border-box;
-  margin: 0;
+    width: 100%;
+    height: 90vh;
+    padding: 2em;
+    box-sizing: border-box;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 12pt;
+    border: none;
+    outline: none;
+    resize: none;
+    line-height: 1.6em;
+    font-family: "Courier New", monospace;
 }
 
-#preview {
-  white-space: pre-wrap;
-  background: #000;
-  color: #fff;
-  font-family: Courier, monospace;
-  padding: 10px;
-  min-height: 200px;
+.title-page {
+    margin-top: 3.5in;
+    margin-left: 4in;
+    margin-right: 1in;
+    margin-bottom: 1in;
+    text-align: center;
+}
+
+.title-page .contact {
+    text-align: right;
+    margin-top: 8em;
 }
