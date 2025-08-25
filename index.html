@@ -2,31 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Script Genie</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <img src="assets/icon.png" alt="Script Genie Icon" />
+  <div class="title-bar">
     <h1>Script Genie</h1>
-  </header>
+    <p>by John Donham</p>
+  </div>
 
-  <main>
-    <section class="editor">
-      <textarea id="script-input" placeholder="Start writing your script..."></textarea>
-    </section>
-    <section class="preview" id="script-preview"></section>
-  </main>
+  <div class="toolbar">
+    <select id="scene-type">
+      <option value="INT.">INT.</option>
+      <option value="EXT.">EXT.</option>
+    </select>
+    <input type="text" id="location" placeholder="Location" />
+    <select id="time-of-day">
+      <option value="DAY">DAY</option>
+      <option value="NIGHT">NIGHT</option>
+      <option value="MORNING">MORNING</option>
+      <option value="AFTERNOON">AFTERNOON</option>
+      <option value="EVENING">EVENING</option>
+    </select>
+    <button onclick="insertSceneHeading()">+ Scene Heading</button>
+    <button onclick="insertSnippet('CHARACTER')">+ Character</button>
+    <button onclick="insertSnippet('ACTION')">+ Action</button>
+    <button onclick="insertSnippet('DIALOGUE')">+ Dialogue</button>
+    <button onclick="exportPDF()">Export PDF</button>
+  </div>
 
-  <footer>
-    <button onclick="exportPDF()">Export to PDF</button>
-    <button onclick="startSprint()">Start Sprint</button>
-    <input id="sprint-duration" type="number" placeholder="Sprint (min)" min="1" />
-    <span id="sprint-timer"></span>
-  </footer>
+  <textarea id="editor" placeholder="Start writing your screenplay here..."></textarea>
+  <div id="preview"></div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

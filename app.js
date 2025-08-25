@@ -1,47 +1,85 @@
-const input = document.getElementById("script-input");
-const preview = document.getElementById("script-preview");
+const editor = document.getElementById("editor");
+const preview = document.getElementById("preview");
 
-input.addEventListener("input", () => {
-  const lines = input.value.split("\n");
-  const output = lines.map(line => {
-    const trimmed = line.trim();
-    if (/^(INT\.|EXT\.|EST\.|INT\/EXT\.)/.test(trimmed)) {
-      return "\nScene: " + trimmed;
-    } else if (trimmed === trimmed.toUpperCase() && trimmed.split(" ").length < 4) {
-      return "\nCHARACTER: " + trimmed;
-    } else if (/^\(.*\)$/.test(trimmed)) {
-      return "\n    (" + trimmed.slice(1, -1) + ")";
-    } else if (["FADE OUT.", "FADE IN:", "DISSOLVE TO:", "SMASH CUT:", "CUT TO:", "MATCH CUT:"].includes(trimmed)) {
-      return "\n     >> " + trimmed + " <<";
+editor.addEventListener("input", updatePreview);
+updatePreview();
+
+function updatePreview() {
+  const lines = editor.value.split("\n");
+  let result = "";
+  lines.forEach(line => {
+    let stripped = line.trim();
+    if (/^(INT\.|EXT\.)/.test(stripped)) {
+      result += `\nScene: ${stripped}`;
+    } else if (/^[A-Z ]+$/.test(stripped) && stripped.length < 30) {
+      result += `\nCHARACTER: ${stripped}`;
+    } else if (stripped.startsWith("(") && stripped.endsWith(")")) {
+      result += `\n    ${stripped}`;
     } else {
-      return "\n" + trimmed;
+      result += `\n${stripped}`;
     }
   });
-  preview.textContent = output.join("");
-});
-
-// Export to PDF
-function exportPDF() {
-  const element = document.getElementById("script-preview");
-  html2pdf().from(element).save("script.pdf");
+  preview.textContent = result;
 }
 
-// Sprint Timer
-let sprintInterval;
-function startSprint() {
-  clearInterval(sprintInterval);
-  let minutes = parseInt(document.getElementById("sprint-duration").value || "5");
-  let seconds = minutes * 60;
-  const timerDisplay = document.getElementById("sprint-timer");
+function insertSceneHeading() {
+  const type = document.getElementById("scene-type").value;
+  const location = document.getElementById("location").value || "LOCATION";
+  const time = document.getElementById("time-of-day").value;
+  const heading = `${type} ${location.toUpperCase()} – ${time}\n`;
+  insertAtCursor(heading);
+}
 
-  sprintInterval = setInterval(() => {
-    const min = Math.floor(seconds / 60);
-    const sec = seconds % 60;
-    timerDisplay.textContent = `${min}:${sec < 10 ? "0" : ""}${sec}`;
-    if (--seconds < 0) {
-      clearInterval(sprintInterval);
-      timerDisplay.textContent = "⏰ Sprint done!";
-      alert("Time's up!");
+function insertSnippet(type) {
+  let snippet = "";
+  switch (type) {
+    case "CHARACTER":
+      snippet = "\nCHARACTER NAME\n";
+      break;
+    case "ACTION":
+      snippet = "\n(Action goes here)\n";
+      break;
+    case "DIALOGUE":
+      snippet = "\nCHARACTER NAME\n    Dialogue line here.\n";
+      break;
+  }
+  insertAtCursor(snippet);
+}
+
+function insertAtCursor(text) {
+  const start = editor.selectionStart;
+  const end = editor.selectionEnd;
+  const before = editor.value.substring(0, start);
+  const after = editor.value.substring(end);
+  editor.value = before + text + after;
+  editor.selectionStart = editor.selectionEnd = start + text.length;
+  editor.focus();
+  updatePreview();
+}
+
+function exportPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({
+    orientation: "portrait",
+    unit: "pt",
+    format: "letter"
+  });
+
+  doc.setFont("Courier", "normal");
+  doc.setFontSize(12);
+  const lines = editor.value.split("\n");
+  let y = 72; // 1 inch top
+  const leftMargin = 108; // 1.5 inch left
+  const lineHeight = 16;
+
+  lines.forEach((line, i) => {
+    if (y > 750) {
+      doc.addPage();
+      y = 72;
     }
-  }, 1000);
+    doc.text(line, leftMargin, y);
+    y += lineHeight;
+  });
+
+  doc.save("script_genie.pdf");
 }
