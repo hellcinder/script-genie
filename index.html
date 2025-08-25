@@ -1,18 +1,36 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Script Genie</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Script Genie</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="toolbar">
-        <button id="themeToggle">Toggle Theme</button>
-        <button id="insertTitle">Insert Title Page</button>
-    </div>
-    <textarea id="editor" placeholder="Start writing your screenplay..."></textarea>
+  <div class="title-bar">
+    <h1>SCRIPT GENIE</h1>
+    <p>By John Donham</p>
+  </div>
 
-    <script src="app.js"></script>
+  <div class="toolbar">
+    <button onclick="insertSceneHeading()">Scene Heading</button>
+    <button onclick="insertCharacter()">Character</button>
+    <button onclick="insertAction()">Action</button>
+    <button onclick="insertDialogue()">Dialogue</button>
+    <button onclick="insertTitlePage()">Title Page</button>
+    <button onclick="exportPDF()">Export PDF</button>
+    <select id="themeToggle" onchange="toggleTheme()">
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
+  </div>
+
+  <div class="editor-preview-container">
+    <textarea id="editor" placeholder="Start writing your script..."></textarea>
+    <div id="preview"></div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>

@@ -1,43 +1,59 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const themeToggle = document.getElementById("themeToggle");
-    const insertTitle = document.getElementById("insertTitle");
-    const editor = document.getElementById("editor");
 
-    // Theme toggle
-    themeToggle.addEventListener("click", () => {
-        document.body.classList.toggle("dark");
-        localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
-    });
+document.addEventListener("DOMContentLoaded", function () {
+  const editor = document.getElementById("editor");
+  const preview = document.getElementById("preview");
 
-    // Restore theme
-    if (localStorage.getItem("theme") === "dark") {
-        document.body.classList.add("dark");
-    }
+  function updatePreview() {
+    const lines = editor.value.split("\n");
+    preview.innerHTML = lines.map(line => {
+      if (line.startsWith("INT.") || line.startsWith("EXT.")) {
+        return `<b>Scene:</b> ${line}`;
+      } else if (line === line.toUpperCase() && line.split(" ").length <= 3) {
+        return `<b>CHARACTER:</b> ${line}`;
+      } else if (line.startsWith("(") && line.endsWith(")")) {
+        return `<i>${line}</i>`;
+      } else {
+        return line;
+      }
+    }).join("<br>");
+  }
 
-    // Insert Title Page
-    insertTitle.addEventListener("click", () => {
-        const titlePage = `
+  editor.addEventListener("input", updatePreview);
 
+  window.insertSceneHeading = () => {
+    insertText("EXT. LOCATION - DAY\n");
+  };
 
-        
-        
-        
-        
-        
-        
-        TITLE OF SCREENPLAY
+  window.insertCharacter = () => {
+    insertText("CHARACTER NAME\n");
+  };
 
-        Written by
-        John Donham
+  window.insertAction = () => {
+    insertText("Action description here.\n");
+  };
 
+  window.insertDialogue = () => {
+    insertText("CHARACTER NAME\nDialogue goes here.\n");
+  };
 
+  window.insertTitlePage = () => {
+    insertText("TITLE\n\nby John Donham\n\nContact: your.email@example.com\n");
+  };
 
+  function insertText(text) {
+    const start = editor.selectionStart;
+    const end = editor.selectionEnd;
+    editor.setRangeText(text, start, end, 'end');
+    updatePreview();
+  }
 
+  window.toggleTheme = () => {
+    document.body.classList.toggle("dark");
+  };
 
+  window.exportPDF = () => {
+    alert("PDF export is not available in the browser-only version.");
+  };
 
-
-                                                 John Donham
-                                            john@example.com`;
-        editor.value = titlePage + "\n\n" + editor.value;
-    });
+  updatePreview();
 });
