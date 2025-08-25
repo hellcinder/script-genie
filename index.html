@@ -1,41 +1,21 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Script Genie</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Genie</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="title-bar">
     <h1>Script Genie</h1>
-    <p>by John Donham</p>
-  </div>
-
-  <div class="toolbar">
-    <select id="scene-type">
-      <option value="INT.">INT.</option>
-      <option value="EXT.">EXT.</option>
-    </select>
-    <input type="text" id="location" placeholder="Location" />
-    <select id="time-of-day">
-      <option value="DAY">DAY</option>
-      <option value="NIGHT">NIGHT</option>
-      <option value="MORNING">MORNING</option>
-      <option value="AFTERNOON">AFTERNOON</option>
-      <option value="EVENING">EVENING</option>
-    </select>
-    <button onclick="insertSceneHeading()">+ Scene Heading</button>
-    <button onclick="insertSnippet('CHARACTER')">+ Character</button>
-    <button onclick="insertSnippet('ACTION')">+ Action</button>
-    <button onclick="insertSnippet('DIALOGUE')">+ Dialogue</button>
-    <button onclick="exportPDF()">Export PDF</button>
-  </div>
-
-  <textarea id="editor" placeholder="Start writing your screenplay here..."></textarea>
-  <div id="preview"></div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="app.js"></script>
+    <div id="toolbar">
+        <button id="sceneBtn">Scene</button>
+        <button id="characterBtn">Character</button>
+        <button id="locationBtn">Location</button>
+        <button id="introBtn">Intro</button>
+    </div>
+    <textarea id="editor" rows="30" cols="100" placeholder="Start writing your script here..."></textarea>
+    <script src="app.js" defer></script>
 </body>
 </html>
