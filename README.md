@@ -1,18 +1,29 @@
-# Script Genie Web
+# 🎬 Script Genie – Screenplay Writing Web App
 
-A lightweight, browser-based screenplay writing tool with live preview and PDF export.
+**Script Genie** is a lightweight, web-based screenplay editor that follows professional formatting rules. Built for simplicity and portability, it runs entirely in the browser — no installation required.
 
-## Features
+![Script Genie Banner](assets/script_genie_icon.png)
 
-- Script editor with Fountain-style markup
-- Real-time preview panel
-- Export to PDF
-- Sprint timer for focused writing sessions
+## ✨ Features
 
-## Deployment
+- 📝 **Screenplay Editor** in Courier 12pt with correct margins
+- 🎥 **Scene Heading Generator**: INT./EXT. + Location + Time dropdown
+- 💡 **Character, Action, Dialogue** snippet buttons
+- 📄 **Title Page** formatting
+- 🎯 **Live Preview** with screenplay styling
+- 📤 **PDF Export** with proper margins (1" top/bottom/right, 1.5" left)
+- 🧠 **Auto-complete** and reusable locations/times
+- ⚡ 100% Offline – runs via GitHub Pages!
 
-Hosted on GitHub Pages. Push to `main` branch and enable Pages under Settings.
+## 🚀 Getting Started
 
-## Creator
+1. Clone or download this repo
+2. Open `index.html` in your browser
+3. Or publish via GitHub Pages:
+    - Go to **Settings > Pages**
+    - Select the root folder on the `main` branch
+    - Access your site at:  
+      `https://yourusername.github.io/script-genie`
 
-Built by John Donham
+## 📁 Project Structure
+
